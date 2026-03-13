@@ -1,0 +1,14 @@
+name: SlowDown
+version: 1.0
+main: com.August.slowdown.SlowDownPlugin
+api-version: '1.21.11'
+folia-supported: true
+authors: [RegalManiac]
+commands:
+  slowdown:
+    description: Anti Elytra-Jump
+    usage: /slowdown <type> <value>
+    permission: slowdown.admin
+permissions:
+  slowdown.admin:
+    default: op
