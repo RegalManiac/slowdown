@@ -8,7 +8,7 @@ A lightweight Minecraft plugin designed for **Folia** and **Paper** servers to p
 * **Folia Ready:** Built using Folia's regional schedulers for maximum performance and compatibility.
 * **Lightweight:** No heavy dependencies, minimal CPU impact.
 
-## 🛠 Commands & Permissions
+##  Commands & Permissions
 | Command                              | Description | Permission |
 |--------------------------------------|-------------|------------|
 | `/slowdown ELYTRA_JUMP <true/false>` | Toggle the limiter | `slowdown.admin` |
@@ -20,7 +20,7 @@ A lightweight Minecraft plugin designed for **Folia** and **Paper** servers to p
 3. Restart the server or load the plugin.
 4. Configure the settings in `config.yml` if needed.
 
-## ⚙️ Configuration
+##  Configuration
 ```yaml
 jump:
   elytra-jump: false
