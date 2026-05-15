@@ -7,8 +7,5 @@ authors: [RegalManiac]
 commands:
   slowdown:
     description: Anti Elytra-Jump
-    usage: /slowdown <type> <value>
+    usage: /slowdown <reload|true|false>
     permission: slowdown.admin
-permissions:
-  slowdown.admin:
-    default: op

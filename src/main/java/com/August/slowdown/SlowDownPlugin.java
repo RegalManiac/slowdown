@@ -28,10 +28,7 @@ public class SlowDownPlugin extends JavaPlugin implements Listener {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {
-            return List.of("ELYTRA_JUMP", "reload");
-        }
-        if (args.length == 2 && args[0].equalsIgnoreCase("ELYTRA_JUMP")) {
-            return List.of("true", "false");
+            return List.of("reload", "true", "false");
         }
         return java.util.Collections.emptyList();
     }
@@ -40,36 +37,29 @@ public class SlowDownPlugin extends JavaPlugin implements Listener {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("slowdown.admin")) return true;
 
-        if (args.length == 0) return false;
+        if (args.length == 0) {
+            sender.sendMessage(ChatColor.YELLOW + "Usage: /slowdown <reload|true|false>");
+            return true;
+        }
 
-        String type = args[0].toUpperCase();
+        String arg = args[0].toLowerCase();
 
-        if (type.equalsIgnoreCase("reload")) {
+        if (arg.equals("reload")) {
             reloadConfig();
             loadSettings();
             sender.sendMessage(ChatColor.GREEN + "[SlowDown] Config reloaded!");
             return true;
         }
 
-        if (args.length < 2) {
-            sender.sendMessage(ChatColor.YELLOW + "Usage: /slowdown <TYPE> <VALUE>");
+        if (arg.equals("true") || arg.equals("false")) {
+            ELYTRA_JUMP = Boolean.parseBoolean(arg);
+            getConfig().set("jump.elytra-jump", ELYTRA_JUMP);
+            saveConfig();
+            sender.sendMessage(ChatColor.GREEN + "[SlowDown] updated to " + ELYTRA_JUMP);
             return true;
         }
 
-        try {
-            String val = args[1];
-            if (type.equals("ELYTRA_JUMP")) {
-                ELYTRA_JUMP = Boolean.parseBoolean(val);
-                getConfig().set("jump.elytra-jump", ELYTRA_JUMP);
-            } else {
-                sender.sendMessage(ChatColor.RED + "Unknown type.");
-                return true;
-            }
-            saveConfig();
-            sender.sendMessage(ChatColor.GREEN + "[SlowDown] " + type + " updated to " + val);
-        } catch (Exception e) {
-            sender.sendMessage(ChatColor.RED + "Invalid value.");
-        }
+        sender.sendMessage(ChatColor.RED + "Unknown argument. " + ChatColor.YELLOW + "Usage: /slowdown <reload|true|false>");
         return true;
     }
 }
